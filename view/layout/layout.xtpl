@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="charset" content="utf-8" />
+    <title>{{title}}</title>
+    <script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script>
+        angular.module('myApp', []).controller('historiesCtrl', function($scope,$http) {
+            $scope.list = function(){
+                var url = '/getHistories';
+                $http.get(url).success(function(data){
+                    $scope.histories = data;
+                })
+            }
+            $scope.list();
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    {{{block ("head")}}}
+</head>
+<body>
+{{include ("./header")}}
+    <article class="main">
+        {{{block ("body")}}}
+    </article>
+{{include ("./footer")}}
+</body>
+</html>

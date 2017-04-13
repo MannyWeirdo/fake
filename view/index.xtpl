@@ -1,0 +1,127 @@
+{{extend ("./layout/layout")}}
+
+{{#block ("head")}}
+    <style>
+        * {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+            }
+
+            html,
+            body {
+                height: 100%;
+            }
+
+            .menu {
+                width: 980px;
+                margin: 0 auto;
+                display: flex;
+                /*当前块为弹性盒*/
+            }
+
+            .menu li {
+                flex: auto;
+                /*弹性盒中的单项*/
+                float: left;
+                height: 868px;
+            }
+
+            .menu li div textarea{
+                width: 350px;
+                height: 530px;
+            }
+    </style>
+{{/block}}
+
+{{#block ("body")}}
+    <div class="page-header">
+        <h1>fake says:<small>{{status}}</small></h1>
+    </div>
+    <div class="container">
+        <div class="jumbotron">
+            <h2>fake is a fake.</h2>
+            <ul class="list-group menu">
+                <form class="form-horizontal " action="/getParams" method="post">
+                    <li class="list-group-item">
+                        <fieldset>
+                            <div id="legend" class="">
+                                <legend class="">History</legend>
+                            </div>
+                            <div class="list-group" ng-app="myApp" ng-controller="historiesCtrl">
+
+                            <p><input type="text" ng-model="test"></p>
+
+                            <ul class="list-group">
+                              <li class="list-group-item list-group-item-success" ng-repeat="x in histories | filter:test">
+                                 \{{x.optName}}
+                              </li>
+                            </ul>
+                            </div>
+                        </fieldset>
+                    </li>
+                    <li class="list-group-item">
+                        <fieldset>
+                            <div id="legend" class="">
+                                <legend class="">Body</legend>
+                            </div>
+                            <div class="control-group">
+                                <!-- Textarea -->
+                                <div class="control-group">
+                                    <!-- Text input-->
+                                    <label class="control-label" for="server">url:</label>
+                                    <div class="controls">
+                                        <input placeholder="http://10.8.0.89/userService/login" class="input-xlarge" type="text" name="url">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!-- Text input-->
+                                    <label class="control-label" for="interface">interface name:</label>
+                                    <div class="controls">
+                                        <input placeholder="pc_login || app_login" class="input-xlarge" type="text" name="interfaceName">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!-- Select Basic -->
+                                    <label class="control-label">method:</label>
+                                    <div class="controls">
+                                        <select class="input-xlarge" name="method">
+                                            <option>POST</option>
+                                            <option>GET</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">body:</label>
+                                    <div class="controls">
+                                        <div class="textarea">
+                                            <textarea type="" class="" name="bodyParams" placeholder="a=b&c=1&d=f"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label"></label>
+                                    <!-- Button -->
+                                    <div class="controls">
+                                        <button id="forHeader" class="btn btn-success" type="submit">Send</button>
+                                    </div>
+                                </div>
+                        </fieldset>
+                    </li>
+                </form>
+                <li class="list-group-item">
+                    <div id="legend" class="">
+                        <legend class="">Response Content</legend>
+                    </div>
+                    <div class="control-group">
+                        <!-- Textarea -->
+                        <div class="controls">
+                            <div class="textarea">
+                                <textarea type="" class="" disabled="disabled" name="resContent" placeholder="">{{reqData}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+{{/block}}
