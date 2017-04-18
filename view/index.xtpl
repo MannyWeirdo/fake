@@ -28,38 +28,37 @@
             }
 
             .menu li div textarea{
-                width: 350px;
+                width: 300px;
                 height: 530px;
             }
+            .menu li div input{
+                width: 270px;
+            }
+
+
     </style>
+
 {{/block}}
 
 {{#block ("body")}}
-    <div class="page-header">
-        <h1>fake says:<small>{{status}}</small></h1>
-    </div>
+
     <div class="container">
         <div class="jumbotron">
-            <h2>fake is a fake.</h2>
+            <p class="navbar-text navbar-right">Fake powered by <a href="http://koajs.com" class="navbar-link">Koa</a></p>
             <ul class="list-group menu">
+                <li class="list-group-item">
+                    <div class="page-header">
+                        <h2>History List</h2>
+                    </div>
+                    <div class="list-group" ng-app="myApp" ng-controller="historiesCtrl">
+                        <p><input type="text" ng-model="test"></p>
+                        <div class="list-group">
+                            <a class="list-group-item list-group-item-success" ng-repeat="x in histories | filter:test" onclick="sendReq(this)">\{{x.optName}}</a>
+                        </div>
+                   </div>
+                </li>
+
                 <form class="form-horizontal " action="/getParams" method="post">
-                    <li class="list-group-item">
-                        <fieldset>
-                            <div id="legend" class="">
-                                <legend class="">History</legend>
-                            </div>
-                            <div class="list-group" ng-app="myApp" ng-controller="historiesCtrl">
-
-                            <p><input type="text" ng-model="test"></p>
-
-                            <ul class="list-group">
-                              <li class="list-group-item list-group-item-success" ng-repeat="x in histories | filter:test">
-                                 \{{x.optName}}
-                              </li>
-                            </ul>
-                            </div>
-                        </fieldset>
-                    </li>
                     <li class="list-group-item">
                         <fieldset>
                             <div id="legend" class="">
@@ -69,21 +68,21 @@
                                 <!-- Textarea -->
                                 <div class="control-group">
                                     <!-- Text input-->
-                                    <label class="control-label" for="server">url:</label>
+                                    <label class="control-label" for="server">URL:</label>
                                     <div class="controls">
                                         <input placeholder="http://10.8.0.89/userService/login" class="input-xlarge" type="text" name="url">
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <!-- Text input-->
-                                    <label class="control-label" for="interface">interface name:</label>
+                                    <label class="control-label" for="interface">Interface Name:</label>
                                     <div class="controls">
-                                        <input placeholder="pc_login || app_login" class="input-xlarge" type="text" name="interfaceName">
+                                        <input placeholder="pc_login or app_login" class="input-xlarge" type="text" name="interfaceName">
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <!-- Select Basic -->
-                                    <label class="control-label">method:</label>
+                                    <label class="control-label">Method:</label>
                                     <div class="controls">
                                         <select class="input-xlarge" name="method">
                                             <option>POST</option>
@@ -92,7 +91,7 @@
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label">body:</label>
+                                    <label class="control-label">Body:</label>
                                     <div class="controls">
                                         <div class="textarea">
                                             <textarea type="" class="" name="bodyParams" placeholder="a=b&c=1&d=f"></textarea>
@@ -103,7 +102,7 @@
                                     <label class="control-label"></label>
                                     <!-- Button -->
                                     <div class="controls">
-                                        <button id="forHeader" class="btn btn-success" type="submit">Send</button>
+                                        <button id="forHeader" class="btn btn-success" type="submit">Send and Save</button>
                                     </div>
                                 </div>
                         </fieldset>
@@ -117,7 +116,7 @@
                         <!-- Textarea -->
                         <div class="controls">
                             <div class="textarea">
-                                <textarea type="" class="" disabled="disabled" name="resContent" placeholder="">{{reqData}}</textarea>
+                                <textarea id='showResult' type="" class="" disabled="disabled" name="resContent" placeholder="">{{reqData}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -125,3 +124,24 @@
             </ul>
         </div>
 {{/block}}
+
+<script type="text/javascript">
+    function sendReq(instance){
+        $.ajax({
+            url: "/sendFromHistory",
+            type: "post",
+            dataType: "json",
+            data: {
+                optionName : instance.innerHTML
+            },success: function(data){
+                console.log(data);
+                $('#showResult').text(JSON.stringify(data));
+            },error: function(e){
+                if(error){
+                    console.log(e);
+                }
+            }
+        })
+    }
+</script>
+
