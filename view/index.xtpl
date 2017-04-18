@@ -34,8 +34,6 @@
             .menu li div input{
                 width: 270px;
             }
-
-
     </style>
 
 {{/block}}
@@ -43,6 +41,7 @@
 {{#block ("body")}}
 
     <div class="container">
+        <script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.js"></script>
         <div class="jumbotron">
             <p class="navbar-text navbar-right">Fake powered by <a href="http://koajs.com" class="navbar-link">Koa</a></p>
             <ul class="list-group menu">

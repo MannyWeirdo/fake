@@ -1,5 +1,5 @@
 <header>
     <div class="page-header">
-      <h1>A custom made Interface testing tool for MiaoQian.<a href='/' class="label label-primary">Fake</a></h1>
+      <h1 style="text-align:center">A custom made Interface testing tool for MiaoQian.<a href='/' class="label label-primary">Fake</a></h1>
     </div>
 </header>
