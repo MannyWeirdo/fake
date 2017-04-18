@@ -1,4 +1,7 @@
 let mg = require('../middleware/mg');
+let app = require('../app');
+let rp = require('request-promise');
+let qs = require('querystring');
 
 let Schema = mg.Schema;
 
@@ -14,9 +17,6 @@ module.exports = {
         yield this.render('index',{'title': "fake"});
     },
     getParams: function*(next){
-
-        let rp = require('request-promise');
-        let qs = require('querystring');
 
         let resData = '';
         let reqBody = this.request.body;
@@ -104,5 +104,19 @@ module.exports = {
 
         this.response.body = yield OptionCollections.find({}).exec();
 
+    },
+    sendFromHistory: function *(next){
+        let targetOptName = this.request.body['optionName'];
+        let item = yield OptionCollections.find({optName: targetOptName}).exec();
+        let reqOption = item[0].option;
+
+        this.response.body = yield rp(reqOption).then((res) => {
+            console.log("=============Response Body==============")
+            console.log("Response Body: " + JSON.stringify(res.body));
+            return JSON.stringify(res.body);
+        }).catch((error) => {
+            console.log("Error:" + error.message);
+        });
+        // yield this.render('index',{'reqData': this.response.body}); // TODO: figure out why this line code dose not work anymore.
     }
 };
