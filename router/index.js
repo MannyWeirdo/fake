@@ -5,4 +5,5 @@ module.exports = function(app){
     app.post('/getParams',controller.getParams);
     app.get('/getHistories', controller.getHistories);
     app.post('/sendFromHistory',controller.sendFromHistory);
+    app.post('/getToken',controller.getToken);
 };

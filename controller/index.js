@@ -12,6 +12,8 @@ let optionsSchema = new Schema({
 
 let OptionCollections = mg.model("Options", optionsSchema);
 
+let token = '';
+
 module.exports = {
     index: function*(){
         yield this.render('index',{'title': "fake"});
@@ -64,6 +66,7 @@ module.exports = {
                     'longitude'       : '0.000000',
                     'Accept-Language' : 'zh-Hans-CN',
                     'sign'            : sign,
+                    'token'           : token,
                     'osVersion'       : '10.2',
                     'Accept'          : '*/*',
                     'Content-Type'    : 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -105,7 +108,7 @@ module.exports = {
         this.response.body = yield OptionCollections.find({}).exec();
 
     },
-    sendFromHistory: function *(next){
+    sendFromHistory: function *(next) {
         let targetOptName = this.request.body['optionName'];
         let item = yield OptionCollections.find({optName: targetOptName}).exec();
         let reqOption = item[0].option;
@@ -118,5 +121,23 @@ module.exports = {
             console.log("Error:" + error.message);
         });
         // yield this.render('index',{'reqData': this.response.body}); // TODO: figure out why this line code dose not work anymore.
+    },
+    getToken: function *(next){
+        let item  = yield OptionCollections.find({optName: 'appLogin_test2'}).exec();
+        let reqOption = item[0].option;
+        reqOption.qs['mobilePhone'] = this.request.body['user'];
+        reqOption.qs['password'] = this.request.body['password'];
+        let resBody = yield rp(reqOption).then((res) => {
+            return res.body;
+        }).catch((error) => {
+            console.log("Error:" + error.message);
+        });
+        if(resBody.code === "000000"){
+            token = resBody.data['token'];
+            let custId = resBody.data['custId'];
+            yield this.render('index',{'custId': custId});
+        }else{
+            yield this.render('index',{'reqData': "账号密码错误，请确认后重新输入。"});
+        }
     }
 };

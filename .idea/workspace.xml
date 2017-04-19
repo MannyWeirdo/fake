@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="27e19e11-faec-496c-a4f7-50dacc283d9e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/index.js" afterPath="$PROJECT_DIR$/controller/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/router/index.js" afterPath="$PROJECT_DIR$/router/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/index.xtpl" afterPath="$PROJECT_DIR$/view/index.xtpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/layout/header.xtpl" afterPath="$PROJECT_DIR$/view/layout/header.xtpl" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,41 +23,31 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controller/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1800">
-              <caret line="121" column="2" lean-forward="false" selection-start-line="121" selection-start-column="2" selection-end-line="121" selection-end-column="2" />
+            <state relative-caret-position="625">
+              <caret line="140" column="9" lean-forward="false" selection-start-line="140" selection-start-column="9" selection-end-line="140" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.xtpl" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.xtpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view/index.xtpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
-              <caret line="43" column="125" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="125" />
+            <state relative-caret-position="650">
+              <caret line="101" column="51" lean-forward="false" selection-start-line="101" selection-start-column="51" selection-end-line="101" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout.xtpl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/view/layout/layout.xtpl">
+      <file leaf-file-name="mg.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/middleware/mg.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="24" lean-forward="true" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="header.xtpl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/view/layout/header.xtpl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="35" lean-forward="false" selection-start-line="2" selection-start-column="35" selection-end-line="2" selection-end-column="35" />
+            <state relative-caret-position="0">
+              <caret line="0" column="16" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -95,11 +86,11 @@
         <option value="$PROJECT_DIR$/middleware/mg.js" />
         <option value="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap.css" />
         <option value="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap-theme.css" />
-        <option value="$PROJECT_DIR$/router/index.js" />
-        <option value="$PROJECT_DIR$/controller/index.js" />
         <option value="$PROJECT_DIR$/view/layout/layout.xtpl" />
-        <option value="$PROJECT_DIR$/view/index.xtpl" />
         <option value="$PROJECT_DIR$/view/layout/header.xtpl" />
+        <option value="$PROJECT_DIR$/router/index.js" />
+        <option value="$PROJECT_DIR$/view/index.xtpl" />
+        <option value="$PROJECT_DIR$/controller/index.js" />
       </list>
     </option>
   </component>
@@ -136,6 +127,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -224,8 +217,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -410,12 +401,13 @@
       <workItem from="1492135153784" duration="233000" />
       <workItem from="1492135477845" duration="16722000" />
       <workItem from="1492397104013" duration="21060000" />
-      <workItem from="1492481201164" duration="22281000" />
+      <workItem from="1492481201164" duration="22470000" />
+      <workItem from="1492568587545" duration="16955000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="241984000" />
+    <option name="totallyTimeSpent" value="259128000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -476,7 +468,21 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="86" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controller/index.js</url>
+          <line>140</line>
+          <properties />
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controller/index.js</url>
+          <line>129</line>
+          <properties />
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="92" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="NodeJSConfigurationType">
@@ -485,13 +491,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/view/index.xtpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/middleware/clientmiddleware" />
     <entry file="file://$PROJECT_DIR$/view/layout/header.xtpl">
       <provider selected="true" editor-type-id="text-editor">
@@ -754,7 +753,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101340">
           <caret line="6756" column="0" lean-forward="false" selection-start-line="6756" selection-start-column="0" selection-end-line="6756" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -765,34 +763,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/mg.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="16" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-15">
           <caret line="31" column="7" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/router/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="60" lean-forward="false" selection-start-line="6" selection-start-column="60" selection-end-line="6" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1800">
-          <caret line="121" column="2" lean-forward="false" selection-start-line="121" selection-start-column="2" selection-end-line="121" selection-end-column="2" />
           <folding />
         </state>
       </provider>
@@ -808,15 +782,47 @@
     <entry file="file://$PROJECT_DIR$/view/layout/layout.xtpl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
-          <caret line="25" column="24" lean-forward="true" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+          <caret line="25" column="24" lean-forward="false" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/mg.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="16" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/router/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="46" lean-forward="false" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/option.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view/index.xtpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="43" column="125" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="125" />
+        <state relative-caret-position="650">
+          <caret line="101" column="51" lean-forward="false" selection-start-line="101" selection-start-column="51" selection-end-line="101" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="625">
+          <caret line="140" column="9" lean-forward="false" selection-start-line="140" selection-start-column="9" selection-end-line="140" selection-end-column="9" />
           <folding />
         </state>
       </provider>
