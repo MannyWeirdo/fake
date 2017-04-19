@@ -28,7 +28,7 @@ module.exports = {
         let paramsBodyStr = reqBody['bodyParams'];// 获取入參格式化的字符串
         let paramsBodyObj = qs.parse(paramsBodyStr); // 将格式化的参数字符串转为参数对象
         let params = paramsBodyStr.split('&'); // 将前端传入的入參格式化的字符串，分割为数组方便排序加密
-
+        
         // 入参排序后，md5加密
         params.sort(); // 排序
         params.push("key=jwoxoWHeauio");// 与服务器约定的字段
