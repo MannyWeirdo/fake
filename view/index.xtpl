@@ -28,18 +28,25 @@
             }
 
             .menu li div textarea{
-                width: 300px;
-                height: 530px;
+                width: 200px;
+                height: 630px;
             }
             .menu li div input{
                 width: 270px;
+            }
+            .forScroll{
+                overflow-y: scroll;
+                width: 270px;
+                height: 630px;
+            }
+            .forFloat{
+                float: left;
             }
     </style>
 
 {{/block}}
 
 {{#block ("body")}}
-
     <div class="container">
         <script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.js"></script>
         <div class="jumbotron">
@@ -49,39 +56,72 @@
                     <div class="page-header">
                         <h2>History List</h2>
                     </div>
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                     <div class="list-group" ng-app="myApp" ng-controller="historiesCtrl">
                         <p><input type="text" ng-model="test"></p>
-                        <div class="list-group">
+                        <div class="list-group forScroll">
                             <a class="list-group-item list-group-item-success" ng-repeat="x in histories | filter:test" onclick="sendReq(this)">\{{x.optName}}</a>
                         </div>
-                   </div>
+                    </div>
                 </li>
-
-                <form class="form-horizontal " action="/getParams" method="post">
-                    <li class="list-group-item">
+                <li class="list-group-item">
+                    <form class="form-horizontal " action="/getToken" method="post">
+                        <fieldset>
+                            <div id="legend" class="">
+                                <legend class="">Get Token</legend>
+                            </div>
+                            <div class="well well-sm">If you want do some actions with an account after login, then you need get token first.</div>
+                            <div class="control-group">
+                                <div class="input-group input-group-sm">
+                                  <span class="input-group-addon" id="user"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+                                  <input type="text" class="form-control" placeholder="User" name="user" aria-describedby="User">
+                                </div>
+                                <div class="well well-sm"></div>
+                                <div class="input-group input-group-sm">
+                                  <span class="input-group-addon" id="password"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
+                                  <input type="password" class="form-control" placeholder="Password" name="password" aria-describedby="Password">
+                                </div>
+                                <div class="well well-sm"></div>
+                                <div class="control-group">
+                                    <!-- Button -->
+                                    <div class="controls">
+                                        <button class="btn btn-success" type="submit">Get Token</button>
+                                    </div>
+                                    <label class="control-label"></label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <form class="form-horizontal " action="/getParams" method="post">
                         <fieldset>
                             <div id="legend" class="">
                                 <legend class="">Body</legend>
                             </div>
                             <div class="control-group">
-                                <!-- Textarea -->
-                                <div class="control-group">
-                                    <!-- Text input-->
-                                    <label class="control-label" for="server">URL:</label>
-                                    <div class="controls">
-                                        <input placeholder="http://10.8.0.89/userService/login" class="input-xlarge" type="text" name="url">
-                                    </div>
+                                <div class="well well-sm">
+                                    You will get a corresponding custId via getting token successfully.
+                                    <span class="glyphicon glyphicon-hand-down" aria-hidden="true"></span>
+                                    </br>
+                                    <span class="label label-success">
+                                        {{custId}}
+                                    </span>
                                 </div>
-                                <div class="control-group">
-                                    <!-- Text input-->
-                                    <label class="control-label" for="interface">Interface Name:</label>
-                                    <div class="controls">
-                                        <input placeholder="pc_login or app_login" class="input-xlarge" type="text" name="interfaceName">
-                                    </div>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-addon" id="url">URL</span>
+                                    <input type="text" class="form-control" placeholder="http://10.8.0.89/userService/login" name="url" aria-describedby="url">
                                 </div>
+                                <div class="well well-sm"></div>
+                                <div class="input-group input-group-sm">
+                                     <span class="input-group-addon" id="interface">Interface</span>
+                                     <input type="text" class="form-control" placeholder="Platform_Interface_Env" name="interfaceName" aria-describedby="interface">
+                                </div>
+                                <div class="well well-sm"></div>
+                                <div class="input-group input-group-sm">
+                                     <span class="input-group-addon" id="body">Params</span>
+                                     <input type="text" class="form-control" placeholder="a=b&c=1&d=f" name="bodyParams" aria-describedby="body">
+                                </div>
+                                <div class="well well-sm"></div>
                                 <div class="control-group">
-                                    <!-- Select Basic -->
-                                    <label class="control-label">Method:</label>
                                     <div class="controls">
                                         <select class="input-xlarge" name="method">
                                             <option>POST</option>
@@ -89,35 +129,32 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="control-group">
-                                    <label class="control-label">Body:</label>
-                                    <div class="controls">
-                                        <div class="textarea">
-                                            <textarea type="" class="" name="bodyParams" placeholder="a=b&c=1&d=f"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="well well-sm"></div>
                                 <div class="control-group">
                                     <label class="control-label"></label>
                                     <!-- Button -->
                                     <div class="controls">
-                                        <button id="forHeader" class="btn btn-success" type="submit">Send and Save</button>
+                                        <button class="btn btn-success" type="submit">Send and Save</button>
                                     </div>
                                 </div>
+                            </div>
                         </fieldset>
-                    </li>
-                </form>
+                    </form>
+                </li>
                 <li class="list-group-item">
                     <div id="legend" class="">
                         <legend class="">Response Content</legend>
                     </div>
-                    <div class="control-group">
-                        <!-- Textarea -->
-                        <div class="controls">
-                            <div class="textarea">
-                                <textarea id='showResult' type="" class="" disabled="disabled" name="resContent" placeholder="">{{reqData}}</textarea>
-                            </div>
-                        </div>
+                    <div class="jumbotron">
+                      <h3>Response Body:</h3>
+                      <div class="control-group">
+                          <!-- Textarea -->
+                          <div class="controls">
+                              <div class="textarea">
+                                  <textarea id='showResult' type="" class="" disabled="disabled" name="resContent" placeholder="">{{reqData}}</textarea>
+                              </div>
+                          </div>
+                      </div>
                     </div>
                 </li>
             </ul>
