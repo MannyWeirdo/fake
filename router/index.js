@@ -6,4 +6,6 @@ module.exports = function(app){
     app.get('/getHistories', controller.getHistories);
     app.post('/sendFromHistory',controller.sendFromHistory);
     app.post('/getToken',controller.getToken);
+    app.post('/delHistory',controller.delHistory);
+    app.post('/updateHistory',controller.updateHistory);
 };

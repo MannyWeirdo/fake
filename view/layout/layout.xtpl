@@ -8,13 +8,60 @@
     <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
     <script src="bootstrap.min.js"></script>
     <script>
-        angular.module('myApp', []).controller('historiesCtrl', function($scope,$http) {
+        angular.module('myApp', []).controller('historiesCtrl', function($scope, $http) {
             $scope.list = function(){
-                var url = '/getHistories';
-                $http.get(url).success(function(data){
+                var url = "/getHistories";
+                $http.get(url,{cache: true}).success(function(data){
                     $scope.histories = data;
-                })
-            }
+                });
+            };
+            $scope.remove = function(item){
+                if(confirm('确定删除该项吗？')==true){
+                    $http({
+                        method: 'POST',
+                        url: '/delHistory',
+                        data: item
+                    }).success(function(res){
+                            $('#showResult').text('删除成功!');
+                            window.onload = function(){
+                                setTimeout("location.reload()",5000);
+                            }
+                            onload();
+                        }).
+                        error(function(e){
+                            $('#showResult').text("Error: " + e);
+                        });
+                }else{
+                    return false;
+                }
+             };
+            $scope.send = function(item){
+                $http({
+                    method: 'POST',
+                    url: '/sendFromHistory',
+                    data: item
+                }).success(function(res){
+                        $('#showResult').text(JSON.stringify(res));
+                    }).
+                    error(function(e){
+                        $('#showResult').text("Error: " + e);
+                    });
+             };
+            $scope.getOldData = function(item){
+                $('#myModal').modal('show')
+                $('#newUrl').val(item.option['url']);
+                $('#preInterfaceName').val(item.optName);
+                $('#params').val(JSON.stringify(item.option['qs']));
+            };
+            $scope.edit = function(){
+                var newUrl = $('#newUrl').val();
+                console.log(newUrl);
+                var newName = $('#newInterfaceName').val();
+                console.log(newName);
+                var newParams = JSON.parse($('#params').val());
+                console.log(newParams);
+                $('#myModal').modal('hide');
+            };
             $scope.list();
         });
     </script>

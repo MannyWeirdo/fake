@@ -25,10 +25,10 @@ module.exports = {
 
         //process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-        let paramsBodyStr = reqBody['bodyParams'];// 获取入參格式化的字符串
+        let paramsBodyStr = reqBody['bodyParams']; // 获取入參格式化的字符串
         let paramsBodyObj = qs.parse(paramsBodyStr); // 将格式化的参数字符串转为参数对象
         let params = paramsBodyStr.split('&'); // 将前端传入的入參格式化的字符串，分割为数组方便排序加密
-        
+
         // 入参排序后，md5加密
         params.sort(); // 排序
         params.push("key=jwoxoWHeauio");// 与服务器约定的字段
@@ -109,10 +109,11 @@ module.exports = {
 
     },
     sendFromHistory: function *(next) {
-        let targetOptName = this.request.body['optionName'];
+        let targetOptName = this.request.body['optName'];
         let item = yield OptionCollections.find({optName: targetOptName}).exec();
         let reqOption = item[0].option;
-
+        let qs = reqOption['qs'];
+        console.log("1111: " + typeof qs);
         this.response.body = yield rp(reqOption).then((res) => {
             console.log("=============Response Body==============")
             console.log("Response Body: " + JSON.stringify(res.body));
@@ -120,11 +121,11 @@ module.exports = {
         }).catch((error) => {
             console.log("Error:" + error.message);
         });
-        // yield this.render('index',{'reqData': this.response.body}); // TODO: figure out why this line code dose not work anymore.
+        // yield this.render('index',{'reqData': "aaa"}); // TODO: figure out why this line code dose not work anymore.
     },
     getToken: function *(next){
-        let item  = yield OptionCollections.find({optName: 'appLogin_test2'}).exec();
-        let reqOption = item[0].option;
+        let items  = yield OptionCollections.find({optName: 'Get_Token'}).exec();
+        let reqOption = items[0].option;
         reqOption.qs['mobilePhone'] = this.request.body['user'];
         reqOption.qs['password'] = this.request.body['password'];
         let resBody = yield rp(reqOption).then((res) => {
@@ -139,5 +140,38 @@ module.exports = {
         }else{
             yield this.render('index',{'reqData': "账号密码错误，请确认后重新输入。"});
         }
+    },delHistory: function *(next) {
+        let targetName = this.request.body['optName'];
+        if(targetName != "Get_Token"){
+            this.response.body = yield OptionCollections.remove({optName: targetName}).exec();
+        }else{
+            this.response.body = yield {"message": "此项不可删除！"};
+
+        }
+
+    },updateHistory: function *(next) {
+        let incomingData = this.request.body;
+        let targetName = incomingData['target'];
+        let items = yield OptionCollections.find({optName: targetName}).exec();
+        let reqOption = items[0].option;
+        let newUrl = incomingData['newUrl'];
+        let newQs = incomingData['newQs'];
+        let newInterfaceName = incomingData['newInterfaceName'];
+        newOption = reqOption;
+        if(newInterfaceName !== null){
+            newOption['url'] = newUrl;
+            newOption['qs'] = JSON.parse(newQs);
+            this.response.body = yield OptionCollections.findOneAndUpdate(
+                {optName: targetName},
+                {$set: { option: newOption, optName: newInterfaceName}},
+                {upsert: true}
+            ).exec();
+        }
+        if(this.response.body != null){
+            yield this.render('index',{'reqData': "修改成功！"});
+        }else{
+            yield this.render('index',{'reqData': "修改失败！"});
+        }
+
     }
 };
