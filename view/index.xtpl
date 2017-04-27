@@ -40,13 +40,52 @@
                 height: 630px;
             }
             .forFloat{
-                float: left;
+                float: right;
+            }
+            .editButton{
+                width: 45px;;
             }
     </style>
 
 {{/block}}
 
 {{#block ("body")}}
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <form class="form-horizontal " action="/updateHistory" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+                    </div>
+                    <div class="modal-body"><div class="input-group">
+                        <span class="input-group-addon">New URL</span>
+                        <input id="newUrl" type="text" class="form-control" name="newUrl" aria-describedby="newUrl">
+                    </div>
+                    <div class="well well-sm"></div>
+                    <div class="input-group">
+                        <span class="input-group-addon">Previous Interface Name</span>
+                        <input id="preInterfaceName" type="text" readonly="readonly" name="target" class="form-control" aria-describedby="preInterfaceName">
+                    </div>
+                    <div class="well well-sm"></div>
+                    <div class="input-group">
+                        <span class="input-group-addon">New Interface Name</span>
+                        <input id="newInterfaceName" type="text" class="form-control" name="newInterfaceName" aria-describedby="newInterfaceName">
+                    </div>
+                    <div class="well well-sm"></div>
+                    <div class="input-group">
+                        <span class="input-group-addon">New Params</span>
+                        <input id="params" type="text" class="form-control" id="basic-url" name="newQs" aria-describedby="params">
+                    </div>
+                    <div class="well well-sm"></div></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
     <div class="container">
         <script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.js"></script>
         <div class="jumbotron">
@@ -60,7 +99,16 @@
                     <div class="list-group" ng-app="myApp" ng-controller="historiesCtrl">
                         <p><input type="text" ng-model="test"></p>
                         <div class="list-group forScroll">
-                            <a class="list-group-item list-group-item-success" ng-repeat="x in histories | filter:test" onclick="sendReq(this)">\{{x.optName}}</a>
+                            <div class=>
+                                <a class="list-group-item list-group-item-success" ng-repeat="x in histories | filter:test">
+                                    \{{x.optName}}
+                                    <div class="btn-toolbar forFloat" role="toolbar" aria-label="...">
+                                        <div class="btn-group btn-group-xs" role="group" ng-click="remove(x)" aria-label="..."><span class="glyphicon glyphicon-trash"></div>
+                                        <div class="btn-group btn-group-xs" role="group" ng-click="send(x)" aria-label="..."><span class="glyphicon glyphicon-eye-open"></div>
+                                        <div class="btn-group btn-group-xs" role="group" ng-click="getOldData(x)" aria-label="..."><span class="glyphicon glyphicon-edit"></div>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -107,18 +155,18 @@
                                     </span>
                                 </div>
                                 <div class="input-group input-group-sm">
-                                    <span class="input-group-addon" id="url">URL</span>
-                                    <input type="text" class="form-control" placeholder="http://10.8.0.89/userService/login" name="url" aria-describedby="url">
+                                    <span class="input-group-addon">URL</span>
+                                    <input id="url" type="text" class="form-control" placeholder="http://10.8.0.89/userService/login" name="url" aria-describedby="url">
                                 </div>
                                 <div class="well well-sm"></div>
                                 <div class="input-group input-group-sm">
-                                     <span class="input-group-addon" id="interface">Interface</span>
-                                     <input type="text" class="form-control" placeholder="Platform_Interface_Env" name="interfaceName" aria-describedby="interface">
+                                     <span class="input-group-addon">Interface</span>
+                                     <input id="interface" type="text" class="form-control" placeholder="Platform_Interface_Env" name="interfaceName" aria-describedby="interface">
                                 </div>
                                 <div class="well well-sm"></div>
                                 <div class="input-group input-group-sm">
-                                     <span class="input-group-addon" id="body">Params</span>
-                                     <input type="text" class="form-control" placeholder="a=b&c=1&d=f" name="bodyParams" aria-describedby="body">
+                                     <span class="input-group-addon">Params</span>
+                                     <input id="body" type="text" class="form-control" placeholder="a=b&c=1&d=f" name="bodyParams" aria-describedby="body">
                                 </div>
                                 <div class="well well-sm"></div>
                                 <div class="control-group">
@@ -129,7 +177,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="well well-sm"></div>
                                 <div class="control-group">
                                     <label class="control-label"></label>
                                     <!-- Button -->
@@ -146,38 +193,17 @@
                         <legend class="">Response Content</legend>
                     </div>
                     <div class="jumbotron">
-                      <h3>Response Body:</h3>
-                      <div class="control-group">
-                          <!-- Textarea -->
-                          <div class="controls">
-                              <div class="textarea">
-                                  <textarea id='showResult' type="" class="" disabled="disabled" name="resContent" placeholder="">{{reqData}}</textarea>
-                              </div>
-                          </div>
-                      </div>
+                        <h3>Response Body:</h3>
+                        <div class="control-group">
+                            <!-- Textarea -->
+                            <div class="controls">
+                                <div class="textarea">
+                                    <textarea id='showResult' type="" class="" readonly="readonly" name="resContent" placeholder="">{{reqData}}</textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </li>
             </ul>
         </div>
 {{/block}}
-
-<script type="text/javascript">
-    function sendReq(instance){
-        $.ajax({
-            url: "/sendFromHistory",
-            type: "post",
-            dataType: "json",
-            data: {
-                optionName : instance.innerHTML
-            },success: function(data){
-                console.log(data);
-                $('#showResult').text(JSON.stringify(data));
-            },error: function(e){
-                if(error){
-                    console.log(e);
-                }
-            }
-        })
-    }
-</script>
-
