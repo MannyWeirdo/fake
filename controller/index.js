@@ -15,10 +15,10 @@ let OptionCollections = mg.model("Options", optionsSchema);
 let token = '';
 
 module.exports = {
-    index: function*(){
-        yield this.render('index',{'title': "fake"});
+    index: function*() {
+        yield this.render('index', {'title': "fake"});
     },
-    getParams: function*(next){
+    getParams: function*(next) {
 
         let resData = '';
         let reqBody = this.request.body;
@@ -34,7 +34,7 @@ module.exports = {
         params.push("key=jwoxoWHeauio");// 与服务器约定的字段
         // 拼回格式化字符串
         let sortedParamsStr = '';
-        for (var i =0 ; i < params.length; i++) {
+        for (var i = 0; i < params.length; i++) {
             if (i !== params.length - 1) {
                 sortedParamsStr += params[i] + '&';
             } else {
@@ -45,35 +45,35 @@ module.exports = {
         let sign = md5(sortedParamsStr);// 加密
 
 
-        if(reqBody['method'] === 'POST'){
+        if (reqBody['method'] === 'POST') {
             var options = {
-                url    : reqBody['url'],
-                method : 'POST',
-                gzip   : true,
-                resolveWithFullResponse : true,
-                json : true,
-                headers : {
-                    'netWorkStandard' : 'WIFI',
-                    'User-Agent'      : 'miaoqian/2.5.1 (iPhone; iOS 10.2.1; Scale/3.00)',
-                    'appVersion'      : '2.5.1',
-                    'channelCode'     : 'App Store',
-                    'latitude'        : '0.000000',
-                    'Content-Length'  : '66',
-                    'deviceId'        : '85fa9624f69f950e1ef3fc1b7f18f1e506430c39',
-                    'appName'         : 'miaoqiannew',
-                    'Connection'      : 'keep-alive',
-                    'deviceModel'     : 'iPhone 7 Plus',
-                    'longitude'       : '0.000000',
-                    'Accept-Language' : 'zh-Hans-CN',
-                    'sign'            : sign,
-                    'token'           : token,
-                    'osVersion'       : '10.2',
-                    'Accept'          : '*/*',
-                    'Content-Type'    : 'application/x-www-form-urlencoded;charset=UTF-8',
-                    'Accept-Encoding' : 'gzip, deflate',
-                    'cType'           : 'iOS'
+                url: reqBody['url'],
+                method: 'POST',
+                gzip: true,
+                resolveWithFullResponse: true,
+                json: true,
+                headers: {
+                    'netWorkStandard': 'WIFI',
+                    'User-Agent': 'miaoqian/2.5.1 (iPhone; iOS 10.2.1; Scale/3.00)',
+                    'appVersion': '2.5.1',
+                    'channelCode': 'App Store',
+                    'latitude': '0.000000',
+                    'Content-Length': '66',
+                    'deviceId': '85fa9624f69f950e1ef3fc1b7f18f1e506430c39',
+                    'appName': 'miaoqiannew',
+                    'Connection': 'keep-alive',
+                    'deviceModel': 'iPhone 7 Plus',
+                    'longitude': '0.000000',
+                    'Accept-Language': 'zh-Hans-CN',
+                    'sign': sign,
+                    'token': token,
+                    'osVersion': '10.2',
+                    'Accept': '*/*',
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                    'Accept-Encoding': 'gzip, deflate',
+                    'cType': 'iOS'
                 },
-                qs : paramsBodyObj
+                qs: paramsBodyObj
             };
             resData = yield rp(options).then((res) => {
                 console.log("=============Response Body==============")
@@ -82,26 +82,26 @@ module.exports = {
             }).catch((error) => {
                 console.log("Error:" + error.message);
             });
-        }else{
+        } else {
 
         }
 
         let mgOptions = options;
 
         let items = yield OptionCollections.find({optName: reqBody['interfaceName']}).exec();
-        if(items.length === 0){
+        if (items.length === 0) {
             newModels = new OptionCollections({
                 optName: reqBody['interfaceName'],
                 option: mgOptions
             });
             yield newModels.save().then((res) => {
-                if (res){
+                if (res) {
                     console.log('data: ' + res);
                 }
             });
         }
 
-        yield this.render('index',{'reqData': resData});
+        yield this.render('index', {'reqData': resData});
     },
     getHistories: function *(next) {
 
@@ -123,8 +123,8 @@ module.exports = {
         });
         // yield this.render('index',{'reqData': "aaa"}); // TODO: figure out why this line code dose not work anymore.
     },
-    getToken: function *(next){
-        let items  = yield OptionCollections.find({optName: 'Get_Token'}).exec();
+    getToken: function *(next) {
+        let items = yield OptionCollections.find({optName: 'Get_Token'}).exec();
         let reqOption = items[0].option;
         reqOption.qs['mobilePhone'] = this.request.body['user'];
         reqOption.qs['password'] = this.request.body['password'];
@@ -133,23 +133,23 @@ module.exports = {
         }).catch((error) => {
             console.log("Error:" + error.message);
         });
-        if(resBody.code === "000000"){
+        if (resBody.code === "000000") {
             token = resBody.data['token'];
             let custId = resBody.data['custId'];
-            yield this.render('index',{'custId': custId});
-        }else{
-            yield this.render('index',{'reqData': "账号密码错误，请确认后重新输入。"});
+            yield this.render('index', {'custId': custId});
+        } else {
+            yield this.render('index', {'reqData': "账号密码错误，请确认后重新输入。"});
         }
-    },delHistory: function *(next) {
+    }, delHistory: function *(next) {
         let targetName = this.request.body['optName'];
-        if(targetName != "Get_Token"){
+        if (targetName != "Get_Token") {
             this.response.body = yield OptionCollections.remove({optName: targetName}).exec();
-        }else{
+        } else {
             this.response.body = yield {"message": "此项不可删除！"};
 
         }
 
-    },updateHistory: function *(next) {
+    }, updateHistory: function *(next) {
         let incomingData = this.request.body;
         let targetName = incomingData['target'];
         let items = yield OptionCollections.find({optName: targetName}).exec();
@@ -158,19 +158,19 @@ module.exports = {
         let newQs = incomingData['newQs'];
         let newInterfaceName = incomingData['newInterfaceName'];
         newOption = reqOption;
-        if(newInterfaceName !== null){
+        if (newInterfaceName !== null) {
             newOption['url'] = newUrl;
             newOption['qs'] = JSON.parse(newQs);
             this.response.body = yield OptionCollections.findOneAndUpdate(
                 {optName: targetName},
-                {$set: { option: newOption, optName: newInterfaceName}},
+                {$set: {option: newOption, optName: newInterfaceName}},
                 {upsert: true}
             ).exec();
         }
-        if(this.response.body != null){
-            yield this.render('index',{'reqData': "修改成功！"});
-        }else{
-            yield this.render('index',{'reqData': "修改失败！"});
+        if (this.response.body != null) {
+            yield this.render('index', {'reqData': "修改成功！"});
+        } else {
+            yield this.render('index', {'reqData': "修改失败！"});
         }
 
     }
