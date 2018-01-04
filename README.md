@@ -1,5 +1,5 @@
 # fake
-Fake is a custom interface testing tool for Mianqian company.
+Fake is a custom interface testing tool for anycompany.
 Fake powered by node,koa2,mongo......
 If you wanna get this shit working.
 First,you need install mongo on your local env ,listen to 27017 port and create a database named fakedb.
